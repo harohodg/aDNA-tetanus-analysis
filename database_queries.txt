@@ -29,6 +29,18 @@ SELECT m.acc
 
 and then use the SRA run selector to obtain the corresponding meta data    
 
+Query to get summary of SRA database
+
+SELECT 
+COUNT(DISTINCT acc) as runs, 
+COUNT(DISTINCT experiment) as experiments,
+COUNT(DISTINCT biosample) as biosamples,
+COUNT(DISTINCT sra_study) as studies,
+COUNT(DISTINCT bioproject) as bioprojects,
+SUM( mbytes ) as totalMegaBytes,
+SUM( mbases ) as totalMegaBases,
+CURRENT_DATE() as the_date
+FROM `nih-sra-datastore.sra.metadata`
 
 Query to get full STAT analysis for each run
 
