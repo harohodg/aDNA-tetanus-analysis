@@ -1,0 +1,82 @@
+#!/bin/bash
+
+##################################################################
+#
+# Michael Mansfield, 2021
+#
+# This script pulls a number of singularity images which are
+# used to execute all of the downstream commands needed to
+# reproduce the analysis of the TeNT variants.
+#
+# Prerequisites:
+#      -docker or singularity installed and accessible on the PATH
+# Usage:
+#      ./setup_environment.sh [docker or singularity]
+#
+#
+##################################################################
+
+if [[ $# -eq 0 ]];
+then
+	echo "Error: you must specify a method of virtualization."
+	echo "Options: docker, singularity"
+	exit 1
+fi
+
+case "$1" in
+	docker)
+		METHOD="docker"
+	;;
+	singularity)
+		METHOD="singularity"
+	;;
+	-h|--h|-help|--help)
+		echo
+		echo "This script sets up a reproducible virtualized environment."
+		echo "    Usage:     setup.sh [docker/singularity]"
+		echo "               If singularity is selected, please specify a singularity"
+		echo "               cache directory. If none is specified, ./tools is used."
+		exit 1
+	;;
+	*)
+		METHOD="${}"
+esac
+
+# Find the directory of the setup.sh script, which lets you move
+# between other directories easily.
+SCRIPTDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+LIBDIR=$(echo ../lib)
+TOOLDIR=$(echo ../tools)
+
+cd "${LIBDIR}"
+IMAGEFILE="images.txt"
+
+printf "Pulling containers...\n\nTool\tVersion\tSource\n"
+declare -A IMAGES
+grep -v "#" "${IMAGEFILE}" | cut -d '"' -f 2 | while read LINE;
+do
+	#TOOL=$(echo "${LINE}" | cut -d "/" -f 3 | cut -d ":" -f 1)
+	LINK=$(echo "${LINE}" | cut -d "\"" -f 2)
+	TOOL=$(echo "${LINE}" | awk -F '/' '{print $NF}' | cut -d ':' -f 1)
+	VERSION=$(echo "${LINE}" | awk -F '/' '{print $NF}' | cut -d ':' -f 2)
+	printf "$TOOL\t$VERSION\t$LINK\n"
+	IMAGES["${TOOL}"]+="${LINK}"
+
+	# Pull relevant containers.
+	if [ "${METHOD}" == "singularity" ];
+	then
+		for IMAGE in "${IMAGES[@]}";
+		do
+			singularity pull --dir "${TOOLDIR}" docker://"${IMAGE}"
+		done
+	elif [ "${METHOD}" == "docker" ];
+	then
+		for IMAGE in "${IMAGES[@]}";
+		do
+			docker pull "${IMAGE}"
+		done
+	else
+		echo "Unknown method "${METHOD}". Please select either 'docker' or 'singularity'."
+		exit 1
+	fi
+done
