@@ -9,31 +9,18 @@
 # reproduce the analysis of the TeNT variants.
 #
 # Prerequisites:
-#      -docker or singularity installed and accessible on the PATH
+#      -singularity installed and accessible on the PATH
 # Usage:
-#      ./setup_environment.sh [docker or singularity]
+#      ./setup.sh
 #
 #
 ##################################################################
 
-if [[ $# -eq 0 ]];
-then
-	echo "Error: you must specify a method of virtualization."
-	echo "Options: docker, singularity"
-	exit 1
-fi
-
 case "$1" in
-	docker)
-		METHOD="docker"
-	;;
-	singularity)
-		METHOD="singularity"
-	;;
 	-h|--h|-help|--help)
 		echo
 		echo "This script sets up a reproducible virtualized environment."
-		echo "    Usage:     setup.sh [docker/singularity]"
+		echo "    Usage:     setup.sh [singularity]"
 		echo "               If singularity is selected, please specify a singularity"
 		echo "               cache directory. If none is specified, ./tools is used."
 		exit 1
@@ -63,20 +50,8 @@ do
 	IMAGES["${TOOL}"]+="${LINK}"
 
 	# Pull relevant containers.
-	if [ "${METHOD}" == "singularity" ];
-	then
-		for IMAGE in "${IMAGES[@]}";
-		do
-			singularity pull --dir "${TOOLDIR}" docker://"${IMAGE}"
-		done
-	elif [ "${METHOD}" == "docker" ];
-	then
-		for IMAGE in "${IMAGES[@]}";
-		do
-			docker pull "${IMAGE}"
-		done
-	else
-		echo "Unknown method "${METHOD}". Please select either 'docker' or 'singularity'."
-		exit 1
-	fi
+	for IMAGE in "${IMAGES[@]}";
+	do
+		singularity pull --dir "${TOOLDIR}" docker://"${IMAGE}"
+	done
 done

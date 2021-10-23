@@ -8,7 +8,7 @@
 # These images are used to run the software used in these scripts, and
 # are provided to ease reproducibility.
 #
-# To reproduce the variant analysis, singularity or docker must installed
+# To reproduce the variant analysis, singularity installed
 # and available on the PATH.
 #
 # Note that you have to pull one of my images for Octopus. At the time of writing,

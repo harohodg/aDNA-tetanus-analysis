@@ -22,4 +22,4 @@ The extracted contents should contain:
 Also, decompress the reference genome archive:
 `tar -zxvf ref_genome.tar.gz`
 
-Then, you should be able to reproduce the analysis using: `../scripts/variants.sh -r [docker/singularity] --variants --alignments --threads [number of threads]`
+Then, you should be able to reproduce the analysis using: `../scripts/variants.sh --variants --alignments --threads [number of threads]`
