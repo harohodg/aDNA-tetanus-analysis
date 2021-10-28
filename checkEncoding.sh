@@ -1,3 +1,9 @@
+#!/usr/bin/env bash
+
+#Small script for predicting the encoding of fastq files
+#Modified from https://bioinformaticsworkbook.org/introduction/fastqquality-score-encoding.htm
+#Usage : checkEncoding.sh <fastq_file>
+
 head -n 10000 "$1" |\
   awk '{if(NR%4==0) printf("%s",$0);}' |  od -A n -t u1 -v | \
   awk 'BEGIN{min=100;max=0;} \
