@@ -1,5 +1,5 @@
 # Benjamin Jean-Marie Tremblay
-# 2021-07-10
+# 2021-10-31
 
 library(ggplot2)
 
@@ -20,7 +20,6 @@ p <- ggplot() +
   scale_y_continuous(expand = c(0, 0), labels = NULL) +
   scale_x_continuous(expand = c(0, 0), breaks = c(89.01, 90:99, 99.99), labels = paste0(89:100, "%"),
     position = "top") +
-  # geom_vline(xintercept = 90:99, colour = "black", size = 5) +
   xlab(NULL) + ylab(NULL) +
   coord_flip() +
   theme_bw() +
@@ -32,4 +31,4 @@ p <- ggplot() +
     axis.text.y = element_text(colour = "black", size = 10)
   )
 
-ggsave("figures/CircosPercentID_legend.pdf", plot = p, width = 0.816, height = 2.62)
+ggsave("CircosPercentID_legend.pdf", plot = p, width = 0.816, height = 2.62)

@@ -1,12 +1,12 @@
 # Benjamin Jean-Marie Tremblay
-# 2021-07-09
+# 2021-10-31
 
 library(Biostrings)
 library(GenomicRanges)
 library(circlize)
 library(ComplexHeatmap)
 
-msa <- readDNAStringSet("data/core.full.cleaned.aln")
+msa <- readDNAStringSet("data/core-snippy-genome.aln.gz")
 msa <- strsplit(as.character(msa), "", TRUE)
 msa <- as.matrix(t(list2DF(msa)))
 
@@ -84,7 +84,7 @@ CircosOrder <- data.frame(
   PlasmidPercentID = unname(plasmidNoRefPctID)[grepl("SAM", names(plasmidNoRefPctID))]
 )
 CircosOrder <- CircosOrder[order(CircosOrder$PercentID, decreasing = TRUE), ]
-readr::write_tsv(CircosOrder, "results/BioSampleCircosOrder.tsv")
+# readr::write_tsv(CircosOrder, "BioSampleCircosOrder.tsv")
 
 plasmidNoRefPctID <- plasmidNoRefPctID[rev(CircosOrder$BioSample)]
 chromNoRefPctID <- chromNoRefPctID[rev(CircosOrder$BioSample)]
@@ -127,7 +127,7 @@ genesChromDf <- data.frame(
 )
 
 circos.clear()
-pdf("figures/CircosPercentID_chromosome_SAM.pdf")
+pdf("CircosPercentID_chromosome_SAM.pdf")
 
 circos.par(
   "start.degree" = 45,
@@ -212,7 +212,7 @@ draw(PctIDlegend, x = unit(0.06, "npc"), y = unit(0.15, "npc"))
 dev.off()
 
 circos.clear()
-pdf("figures/CircosPercentID_plasmid_SAM.pdf")
+pdf("CircosPercentID_plasmid_SAM.pdf")
 
 circos.par(
   "start.degree" = 45,
