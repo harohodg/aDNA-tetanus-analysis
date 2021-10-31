@@ -1,28 +1,13 @@
 # Benjamin Jean-Marie Tremblay
-# 2021-07-10
+# 2021-10-31
 
-msa1 <- Biostrings::readDNAStringSet("data/ANDREW2-consensus_variants.E88_aligned.noInsertions.fastANDREW-a")
-msa2 <- Biostrings::readDNAStringSet("data/consensus_variants.E88_aligned.noInsertions.fastANDREW-a")
+msa1 <- Biostrings::readDNAStringSet("data/TeNT-MSA-nucl.mfa.longer.fasta")
 
 msa1 <- as.character(msa1)
-msa2 <- as.character(msa2)
 
 msa1 <- t(sapply(msa1, \(.) strsplit(., "", TRUE)[[1]]))
-msa2 <- t(sapply(msa2, \(.) strsplit(., "", TRUE)[[1]]))
-msa2 <- msa2[rownames(msa1), ]
 
-n <- 0
-
-for (i in 1:ncol(msa1)) {
-  for (j in 1:nrow(msa1)) {
-    p1 <- msa1[j, i]
-    p2 <- msa2[j, i]
-    if (p1 == "-" || p2 == "-") next
-    if (p1 != p2) n <- n + 1
-  }
-}
-
-msa3 <- Biostrings::readDNAStringSet("data/core.full.cleaned.aln")
+msa3 <- Biostrings::readDNAStringSet("data/core-snippy-genome.aln.gz")
 msa3 <- as.character(msa3)
 msa3 <- t(sapply(msa3, \(.) strsplit(., "", TRUE)[[1]]))
 msa3 <- msa3[, 2867891:2871838]
@@ -64,4 +49,4 @@ for (i in 1:nrow(Diffs)) {
   Diffs$OldBase[i] <- msa3[Dj[i], Di[i]]
   Diffs$NewBase[i] <- msa1[Dj[i], Di[i]]
 }
-readr::write_tsv(Diffs, "results/CoreFullCleaned_vs_MikeMSA_Diffs.tsv")
+readr::write_tsv(Diffs, "CoreFullCleaned_vs_VariantMSA_Diffs.tsv")

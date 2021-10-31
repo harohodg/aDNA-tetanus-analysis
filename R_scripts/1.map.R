@@ -1,5 +1,5 @@
 # Benjamin Jean-Marie Tremblay
-# 2021-07-09
+# 2021-10-31
 
 library(ggplot2)
 library(sf)
@@ -11,7 +11,7 @@ library(cowplot)
 
 world <- ne_countries(scale = "medium", returnclass = "sf")
 
-metadata <- readxl::read_xlsx("data/Metadata.xlsx")
+metadata <- readr::read_csv("data/SampleMetadata.csv")
 metadata <- metadata[, c("FINAL-MP-DATES", "FINAL-DATE-RANGE", "Latitude", "Longitude", "BioSample")]
 
 dat <- metadata %>%
@@ -64,7 +64,7 @@ calc_plane <- function(x, MidpointBuffer = 50, rerun = 3) {
 
   for (i in 2:nrow(x)) {
     p <- get_low_high(x[i, ])
-    if (is.na(p)) return(plane)
+    if (!is.list(p) && is.na(p)) return(plane)
     for (h in 1:rerun) {
       for (j in 1:(i - 1)) {
         pp <- get_low_high(x[j, ])
@@ -88,20 +88,15 @@ dat2$Date2[dat2$X == "Lowpoint"] <- dat2$Date2[dat2$X == "Lowpoint"] + 10
 dat2$Date2[dat2$X == "Highpoint"] <- dat2$Date2[dat2$X == "Highpoint"] - 10
 
 p2 <- ggplot(dat2, aes(Date, Plane, group = BioSample, colour = BioSample)) +
-  # geom_path(size=3.2, colour = "black") +
-  # geom_path(aes(Date2, Plane, colour = BioSample), size=2.5, alpha = 0.9) +
   geom_path(size=2.3, colour = "black") +
   geom_path(aes(Date2, Plane, colour = BioSample), size=1.6, alpha = 0.9) +
   geom_point(aes(x = Midpoint, y = Plane+.09, group = BioSample, fill = BioSample),
     data = dat,
-    # size = 2, pch = 25,
     size = 1.3, pch = 25,
     alpha = 0.9, colour = "black") +
   geom_point(aes(x = 0, y = 5.5), colour = "white") +
   scale_fill_manual(values = c(viridis_pal(option = "C")(34), "grey", "grey", "grey", "grey")) +
   scale_colour_manual(values = c(viridis_pal(option = "C")(34), "grey", "grey", "grey", "grey")) +
-  # scale_fill_viridis(option = "C", discrete = TRUE) +
-  # scale_colour_viridis(option = "C", discrete = TRUE) +
   xlab(element_blank()) +
   ylab(element_blank()) +
   ylim(c(0.5, NA)) +
@@ -128,7 +123,6 @@ p1 <- ggplot(data = world) +
   coord_sf(expand = FALSE) +
   geom_point(aes(Longitude, Latitude, fill = BioSample),
     dat3, pch = 21, size = 2, alpha = 0.9) +
-  # scale_fill_viridis(option = "C", discrete = TRUE, name = NULL) +
   scale_fill_manual(name = NULL,
     values = c(viridis_pal(option = "C")(34), "grey20", "grey40", "grey60", "grey80")) +
   theme_bw() +
@@ -142,9 +136,6 @@ p1 <- ggplot(data = world) +
   )
 
 p <- plot_grid(NULL, p2, NULL, p1, ncol = 1, align = "v", axis = "lr",
-  # rel_heights = c(0.01, 0.195, -0.18, 1)
   rel_heights = c(0.034, 0.195, -0.15, 1)
 )
-# p
-ggsave("figures/map.pdf", plot = p,  width = 9.99, height = 5.28)
-# ggsave("figures/map.pdf")
+ggsave("map.pdf", plot = p,  width = 9.99, height = 5.28)
