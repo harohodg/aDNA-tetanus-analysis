@@ -1,6 +1,7 @@
-Query to search for all runs with tetanus identified in the STAT analysis
-The EXCEPT clause remove columns with data that can't be exported to csv
+# Query to search for all runs with tetanus identified in the STAT analysis
+The EXCEPT clause removes columns with data that can't be exported to csv
 
+```
 SELECT m.* 
     EXCEPT 
     (attributes, 
@@ -17,20 +18,23 @@ SELECT m.*
     tax.self_count 
     FROM nih-sra-datastore.sra.metadata as m, 
     nih-sra-datastore.sra_tax_analysis_tool.tax_analysis as tax 
-    WHERE m.acc=tax.acc and tax_id=1513  
+    WHERE m.acc=tax.acc and tax_id=1513
     ORDER BY tax.total_count
+```
 
 Could be simplified to 
-SELECT m.acc 
+```
+SELECT m.acc, tax.self_count, tax.total_count 
     FROM nih-sra-datastore.sra.metadata as m, 
     nih-sra-datastore.sra_tax_analysis_tool.tax_analysis as tax 
-    WHERE m.acc=tax.acc and tax_id=1513  
-    ORDER BY tax.total_count
+    WHERE m.acc=tax.acc and tax_id=1513
+    ORDER BY tax.total_count DESCENDING
+```
+and then use the [SRA run selector](https://www.ncbi.nlm.nih.gov/Traces/study/) to obtain the corresponding meta data
 
-and then use the SRA run selector to obtain the corresponding meta data    
 
-Query to get summary of SRA database
-
+# Query to get summary of SRA database
+```
 SELECT 
 COUNT(DISTINCT acc) as runs, 
 COUNT(DISTINCT experiment) as experiments,
@@ -41,10 +45,11 @@ SUM( mbytes ) as totalMegaBytes,
 SUM( mbases ) as totalMegaBases,
 CURRENT_DATE() as the_date
 FROM `nih-sra-datastore.sra.metadata`
+```
 
-Query to get full STAT analysis for each run
-
-SELECT  * FROM  
+# Query to get full STAT analysis for each run
+```
+SELECT  * FROM
     nih-sra-datastore.sra_tax_analysis_tool.tax_analysis 
     AS tax 
     WHERE tax.acc 
@@ -125,4 +130,4 @@ SELECT  * FROM
     "ERR4017942",
     "ERR4017944",
     "ERR4017946")
-
+```
