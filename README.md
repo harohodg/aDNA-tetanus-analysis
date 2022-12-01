@@ -10,10 +10,9 @@ This repository contains code and links to data for [Ancient Clostridium DNA and
 ### Data Links
 | Data Description                                                                | DOI                                          |
 |---------------------------------------------------------------------------------|----------------------------------------------|
-| Supplementary Excell Spreadsheet                                                |                                              |
 | Megahit co-assembled final contigs                                              | https://doi.org/10.6084/m9.figshare.21498198 |
 | Megahit co-assembled contigs - Kaiju filtered                                   | https://doi.org/10.6084/m9.figshare.21498222 |
 | Megahit co-assembled final contigs - Kaiju filtered - BLAST validated           | https://doi.org/10.6084/m9.figshare.21498330 |
 | Megahit co-assembled final contigs - Kaiju filtered - BLAST validated - Not RNA | https://doi.org/10.6084/m9.figshare.21498339 |
 | Initial Phylogenetic Results                                                    | https://doi.org/10.6084/m9.figshare.21651503 |
-| Refined Phylogenetic Results                                                    | https://doi.org/10.6084/m9.figshare.21652340 |
+| Final   Phylogenetic Results                                                    | https://doi.org/10.6084/m9.figshare.21652340 |
