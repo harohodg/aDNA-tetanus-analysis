@@ -1,0 +1,20 @@
+# Mike Mansfield, 2021
+# This file contains a list of biocontainer images used in these scripts.
+# The structure of this file allows software names to be tied to specific,
+# version-controlled containers. The container images originate from bioconda,
+# which get converted to containers by biocontainers, which are in turn
+# hosted on quay.io.
+#
+# These images are used to run the software used in these scripts, and
+# are provided to ease reproducibility.
+#
+# To reproduce the variant analysis, singularity installed
+# and available on the PATH.
+#
+# Note that you have to pull one of my images for Octopus. At the time of writing,
+# the authors' recipes for the dev and master branches on GitHub were broken.
+"quay.io/biocontainers/samtools:1.12--h9aed4be_1"
+"quay.io/biocontainers/bwa:0.7.17--h5bf99c6_8"
+"mjmansfi/octopus:0.7.4"
+"quay.io/biocontainers/bcftools:1.12--h45bccc9_1"
+"quay.io/biocontainers/mafft:7.480--h779adbc_0"
