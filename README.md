@@ -16,3 +16,4 @@ This repository contains code and links to data for [Ancient Clostridium DNA and
 | Megahit co-assembled final contigs - Kaiju filtered - BLAST validated - Not RNA | https://doi.org/10.6084/m9.figshare.21498339 |
 | Initial Phylogenetic Results                                                    | https://doi.org/10.6084/m9.figshare.21651503 |
 | Final   Phylogenetic Results                                                    | https://doi.org/10.6084/m9.figshare.21652340 |
+| mapDamage plots for acBins and human mitocondrial DNA                           | https://doi.org/10.6084/m9.figshare.23804106 |
