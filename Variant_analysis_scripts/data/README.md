@@ -1,7 +1,7 @@
 To reproduce the variant analysis, you will need to download the read alignment tarball and extract the contents here.
 
 You can get the tarball from:
-`[LINK TBA]`
+[https://doi.org/10.6084/m9.figshare.23925768](https://doi.org/10.6084/m9.figshare.23925768)
 
 Inspect its hash and make sure the downloaded archive matches:
 `cat read_alignments.tar.gz.md5`

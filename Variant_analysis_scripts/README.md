@@ -12,7 +12,7 @@ The `setup.sh` and `variants.sh` should work on 64-bit x86 Linux systems with th
 ## Input data
 You will need to download the `read_alignments.tar.gz` archive, which is available at the following link:
 
-`[LINK GOES HERE]`
+[https://doi.org/10.6084/m9.figshare.23925768](https://doi.org/10.6084/m9.figshare.23925768)
 
 The full variant analysis is wrapped in a single script, `variants.sh`. See `./scripts/variants.sh -h` for options.
 
