@@ -1,4 +1,4 @@
-This repository contains code and links to data for [Ancient Clostridium DNA and variants of tetanus neurotoxins associated with human archaeological remains](https://doi.org/10.1101/2022.06.30.498301) by H.Hodgins et. al 2022
+This repository contains code and links to data for [Ancient Clostridium DNA and variants of tetanus neurotoxins associated with human archaeological remains](https://doi.org/10.1101/2022.06.30.498301) by H.Hodgins et. al 2023
 
 ### Repository Contents
 | Folder                   | Description of Contents                                    |
